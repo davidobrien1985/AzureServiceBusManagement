@@ -8,7 +8,7 @@ Function Get-Token {
     Inspired by https://github.com/Azure/azure-powershell/issues/7525#issuecomment-432384270
 #>
 
-    [CmdletBinding(SupportsShouldProcess)]
+    [CmdletBinding()]
     param (
         #Your Azure Context. This will be discovered automatically if you have already logged in with Connect-AzAccount
         [Microsoft.Azure.Commands.Profile.Models.Core.PSAzureContext]
