@@ -90,7 +90,7 @@ Enter-Build {
     $script:BuildModuleRootFile = Join-Path -Path $script:ArtifactsPath -ChildPath "$($script:ModuleName).psm1"
 
     # Ensure our builds fail until if below a minimum defined code test coverage threshold
-    $script:coverageThreshold = 30
+    $script:coverageThreshold = 0
 
 
     [version]$script:MinPesterVersion = '5.2.2'
@@ -159,53 +159,53 @@ Add-BuildTask Clean {
     Write-Build Green '      ...Clean Complete!'
 } #Clean
 
-# #Synopsis: Invokes PSScriptAnalyzer against the Module source path
-# Add-BuildTask Analyze {
+#Synopsis: Invokes PSScriptAnalyzer against the Module source path
+Add-BuildTask Analyze {
 
-#     $scriptAnalyzerParams = @{
-#         Path    = $script:ModuleSourcePath
-#         Setting = 'PSScriptAnalyzerSettings.psd1'
-#         Recurse = $true
-#         Verbose = $false
-#     }
+    $scriptAnalyzerParams = @{
+        Path    = $script:ModuleSourcePath
+        Setting = 'PSScriptAnalyzerSettings.psd1'
+        Recurse = $true
+        Verbose = $false
+    }
 
-#     Write-Build White '      Performing Module ScriptAnalyzer checks...'
-#     $scriptAnalyzerResults = Invoke-ScriptAnalyzer @scriptAnalyzerParams
+    Write-Build White '      Performing Module ScriptAnalyzer checks...'
+    $scriptAnalyzerResults = Invoke-ScriptAnalyzer @scriptAnalyzerParams
 
-#     if ($scriptAnalyzerResults) {
-#         $scriptAnalyzerResults | Format-Table
-#         throw '      One or more PSScriptAnalyzer errors/warnings where found.'
-#     }
-#     else {
-#         Write-Build Green '      ...Module Analyze Complete!'
-#     }
-# } #Analyze
+    if ($scriptAnalyzerResults) {
+        $scriptAnalyzerResults | Format-Table
+        throw '      One or more PSScriptAnalyzer errors/warnings where found.'
+    }
+    else {
+        Write-Build Green '      ...Module Analyze Complete!'
+    }
+} #Analyze
 
-# #Synopsis: Invokes Script Analyzer against the Tests path if it exists
-# Add-BuildTask AnalyzeTests -After Analyze {
-#     if (Test-Path -Path $script:TestsPath) {
+#Synopsis: Invokes Script Analyzer against the Tests path if it exists
+Add-BuildTask AnalyzeTests -After Analyze {
+    if (Test-Path -Path $script:TestsPath) {
 
 
-#         $scriptAnalyzerParams = @{
-#             Path        = $script:TestsPath
-#             Setting     = 'PSScriptAnalyzerSettings.psd1'
-#             ExcludeRule = 'PSUseDeclaredVarsMoreThanAssignments'
-#             Recurse     = $true
-#             Verbose     = $false
-#         }
+        $scriptAnalyzerParams = @{
+            Path        = $script:TestsPath
+            Setting     = 'PSScriptAnalyzerSettings.psd1'
+            ExcludeRule = 'PSUseDeclaredVarsMoreThanAssignments'
+            Recurse     = $true
+            Verbose     = $false
+        }
 
-#         Write-Build White '      Performing Test ScriptAnalyzer checks...'
-#         $scriptAnalyzerResults = Invoke-ScriptAnalyzer @scriptAnalyzerParams
+        Write-Build White '      Performing Test ScriptAnalyzer checks...'
+        $scriptAnalyzerResults = Invoke-ScriptAnalyzer @scriptAnalyzerParams
 
-#         if ($scriptAnalyzerResults) {
-#             $scriptAnalyzerResults | Format-Table
-#             throw '      One or more PSScriptAnalyzer errors/warnings where found.'
-#         }
-#         else {
-#             Write-Build Green '      ...Test Analyze Complete!'
-#         }
-#     }
-# } #AnalyzeTests
+        if ($scriptAnalyzerResults) {
+            $scriptAnalyzerResults | Format-Table
+            throw '      One or more PSScriptAnalyzer errors/warnings where found.'
+        }
+        else {
+            Write-Build Green '      ...Test Analyze Complete!'
+        }
+    }
+} #AnalyzeTests
 
 #Synopsis: Analyze scripts to verify if they adhere to desired coding format (Stroustrup / OTBS / Allman)
 Add-BuildTask FormattingCheck {

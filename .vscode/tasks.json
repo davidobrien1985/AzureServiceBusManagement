@@ -127,28 +127,28 @@
             },
             "group": "none"
         },
-        {
-            "label": "AnalyzeTests",
-            "type": "shell",
-            "command": "Invoke-Build -Task AnalyzeTests -File '${workspaceFolder}/src/AzureServiceBusManagement.build.ps1'",
-            "problemMatcher": "$msCompile",
-            "presentation": {
-                "echo": false,
-                "showReuseMessage": false
-            },
-            "group": "none"
-        },
-        {
-            "label": "FormattingCheck",
-            "type": "shell",
-            "command": "Invoke-Build -Task FormattingCheck -File '${workspaceFolder}/src/AzureServiceBusManagement.build.ps1'",
-            "problemMatcher": "$msCompile",
-            "presentation": {
-                "echo": false,
-                "showReuseMessage": false
-            },
-            "group": "none"
-        },
+        // {
+        //     "label": "AnalyzeTests",
+        //     "type": "shell",
+        //     "command": "Invoke-Build -Task AnalyzeTests -File '${workspaceFolder}/src/AzureServiceBusManagement.build.ps1'",
+        //     "problemMatcher": "$msCompile",
+        //     "presentation": {
+        //         "echo": false,
+        //         "showReuseMessage": false
+        //     },
+        //     "group": "none"
+        // },
+        // {
+        //     "label": "FormattingCheck",
+        //     "type": "shell",
+        //     "command": "Invoke-Build -Task FormattingCheck -File '${workspaceFolder}/src/AzureServiceBusManagement.build.ps1'",
+        //     "problemMatcher": "$msCompile",
+        //     "presentation": {
+        //         "echo": false,
+        //         "showReuseMessage": false
+        //     },
+        //     "group": "none"
+        // },
         {
             "label": "Test",
             "type": "shell",

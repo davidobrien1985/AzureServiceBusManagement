@@ -5,9 +5,6 @@
     This cmdlet will receive and delete a message from a given Azure Service Bus Namespace topic's subscription. By default only the first message will be received, this can however be automatically repeated many more times using the RepeatCount parameter, clearing out a topic in only a few seconds.
 .EXAMPLE
     C:\PS> Receive-SbMessage -NameSpace <ServiceBusNameSpaceName> -TopicName <TopicName> -SubscriptionName <SubscriptionName>
-.EXAMPLE
-    C:\PS>
-    Another example of how to use this cmdlet
 .PARAMETER InputObject
     Specifies the object to be processed.  You can also pipe the objects to this command.
 .OUTPUTS
@@ -22,17 +19,14 @@ function Receive-SbMessage {
     param (
         [Parameter(Mandatory = $true,
             HelpMessage = 'The name of the Service Bus Namespace')]
-        [ValidateNotNull()]
         [ValidateNotNullOrEmpty()]
         [string]$NameSpace,
         [Parameter(Mandatory = $true,
             HelpMessage = 'The name of the Service Bus Namespace Topic')]
-        [ValidateNotNull()]
         [ValidateNotNullOrEmpty()]
         [string]$TopicName,
         [Parameter(Mandatory = $true,
             HelpMessage = 'The name of the Service Bus Topic Subscription')]
-        [ValidateNotNull()]
         [ValidateNotNullOrEmpty()]
         [string]$SubscriptionName,
         [Parameter(HelpMessage = 'How many messages should we receive / delete? Understand this as a batch size.')]
@@ -56,7 +50,9 @@ function Receive-SbMessage {
     $RunspacePool.Open()
     $Jobs = @()
 
-    1..$BatchSize | Foreach-Object {
+    Write-Verbose "Calling the Azure Service Bus API endpoint for Service Bus Namespace $($NameSpace), Topic $($TopicName) and Subscription $($SubscriptionName)."
+
+    1..$BatchSize | ForEach-Object {
         $PowerShell = [powershell]::Create()
         $PowerShell.RunspacePool = $RunspacePool
         $PowerShell.AddScript($ScriptBlock).AddArgument($_)
