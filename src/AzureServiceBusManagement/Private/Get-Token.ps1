@@ -1,11 +1,11 @@
 Function Get-Token {
     <#
 .SYNOPSIS
-    Refreshes the API token if required (by https://github.com/JustinGrote/Az.PortalAPI/blob/master/Az.PortalAPI/Public/Get-Token.ps1)
+    This cmdlet returns an Azure API access token for the Azure Service Bus Resource Provider
 .OUTPUTS
     API Token Object
 .NOTES
-    Inspired by https://github.com/Azure/azure-powershell/issues/7525#issuecomment-432384270
+    This can technically also be used for other services.
 #>
 
     [CmdletBinding()]
@@ -24,5 +24,5 @@ Function Get-Token {
         $Context = (Get-AzContext | Select-Object -First 1)
     }
 
-    return ([Microsoft.Azure.Commands.Common.Authentication.AzureSession]::Instance.AuthenticationFactory.Authenticate($context.Account, $context.Environment, $context.Tenant.Id, $null, "Never", $null, $Resource)).AccessToken
+    return (Get-AzAccessToken -ResourceUrl $Resource).Token
 }
