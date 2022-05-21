@@ -33,7 +33,7 @@ function Receive-SbMessage {
         [int]$BatchSize=1
     )
 
-    $token = Get-Token
+    $token = Get-SbApiToken
     $headers = @{
         'Authorization' = 'Bearer ' + $token
     }

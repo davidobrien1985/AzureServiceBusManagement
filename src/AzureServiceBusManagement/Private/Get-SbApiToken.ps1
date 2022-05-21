@@ -1,4 +1,4 @@
-Function Get-Token {
+Function Get-SbApiToken {
     <#
 .SYNOPSIS
     This cmdlet returns an Azure API access token for the Azure Service Bus Resource Provider
