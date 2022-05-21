@@ -55,7 +55,7 @@ function Receive-SbMessage {
     1..$BatchSize | ForEach-Object {
         $PowerShell = [powershell]::Create()
         $PowerShell.RunspacePool = $RunspacePool
-        $PowerShell.AddScript($ScriptBlock).AddArgument($_)
+        $PowerShell.AddScript($ScriptBlock).AddParameter('NameSpace', $NameSpace).AddParameter('TopicName', $TopicName).AddParameter('SubscriptionName', $SubscriptionName).AddParameter('headers', $headers)
         $Jobs += $PowerShell.BeginInvoke()
     }
 
