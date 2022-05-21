@@ -53,9 +53,8 @@ function Receive-SbMessage {
     Write-Verbose "Calling the Azure Service Bus API endpoint for Service Bus Namespace $($NameSpace), Topic $($TopicName) and Subscription $($SubscriptionName)."
 
     1..$BatchSize | ForEach-Object {
-        $PowerShell = [powershell]::Create()
+        $PowerShell = [powershell]::Create().AddScript($ScriptBlock).AddParameter('NameSpace', $NameSpace).AddParameter('TopicName', $TopicName).AddParameter('SubscriptionName', $SubscriptionName).AddParameter('headers', $headers)
         $PowerShell.RunspacePool = $RunspacePool
-        $PowerShell.AddScript($ScriptBlock).AddParameter('NameSpace', $NameSpace).AddParameter('TopicName', $TopicName).AddParameter('SubscriptionName', $SubscriptionName).AddParameter('headers', $headers)
         $Jobs += $PowerShell.BeginInvoke()
     }
 
@@ -67,4 +66,3 @@ function Receive-SbMessage {
     return $stopWatch.Elapsed
 
 } #Receive-SbMessage
-
