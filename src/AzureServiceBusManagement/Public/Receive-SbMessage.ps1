@@ -2,7 +2,7 @@
 .SYNOPSIS
     Receive and delete a message from Azure Service Bus topic's subscription
 .DESCRIPTION
-    This cmdlet will receive and delete a message from a given Azure Service Bus Namespace topic's subscription. By default only the first message will be received, this can however be automatically repeated many more times using the RepeatCount parameter, clearing out a topic in only a few seconds.
+    This cmdlet will receive and delete a message from a given Azure Service Bus Namespace topic's subscription. By default only the first message will be received, this can however be automatically repeated many more times using the BatchSize parameter, clearing out a topic in only a few seconds.
 .EXAMPLE
     C:\PS> Receive-SbMessage -NameSpace <ServiceBusNameSpaceName> -TopicName <TopicName> -SubscriptionName <SubscriptionName>
 .PARAMETER InputObject
