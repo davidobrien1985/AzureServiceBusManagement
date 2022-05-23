@@ -5,27 +5,26 @@ online version:
 schema: 2.0.0
 ---
 
-# Receive-SbMessage
+# Send-SbTestMessage
 
 ## SYNOPSIS
-Receive and delete a message from Azure Service Bus topic's subscription
+Send a message to Azure Service Bus topic
 
 ## SYNTAX
 
 ```
-Receive-SbMessage [-NameSpace] <String> [-TopicName] <String> [-SubscriptionName] <String>
- [[-BatchSize] <Int32>] [<CommonParameters>]
+Send-SbTestMessage [-NameSpace] <String> [-TopicName] <String> [[-message] <String>] [[-BatchSize] <Int32>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This cmdlet will receive and delete a message from a given Azure Service Bus Namespace topic's subscription.
-By default only the first message will be received, this can however be automatically repeated many more times using the BatchSize parameter, clearing out a topic in only a few seconds.
+This cmdlet will send a message to a given Azure Service Bus Namespace topic.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Receive-SbMessage -NameSpace <ServiceBusNameSpaceName> -TopicName <TopicName> -SubscriptionName <SubscriptionName>
+Send-SbTestMessage -NameSpace <ServiceBusNameSpaceName> -TopicName <TopicName>
 ```
 
 ## PARAMETERS
@@ -60,15 +59,15 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SubscriptionName
-The name of the Service Bus Topic Subscription
+### -message
+Message that should be put onto the Service Bus Topic.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 3
 Default value: None
 Accept pipeline input: False
@@ -76,7 +75,7 @@ Accept wildcard characters: False
 ```
 
 ### -BatchSize
-How many messages should we receive / delete?
+How many messages should we send?
 Understand this as a batch size.
 
 ```yaml
